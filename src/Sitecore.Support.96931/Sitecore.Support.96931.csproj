@@ -52,6 +52,10 @@
       <HintPath>..\packages\SC.Sitecore.ContentSearch.LuceneProvider.8.2.2\lib\Sitecore.ContentSearch.LuceneProvider.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Sitecore.ContentSearch.SolrProvider, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SC.Sitecore.ContentSearch.SolrProvider.8.2.2\lib\Sitecore.ContentSearch.SolrProvider.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Sitecore.Kernel">
       <HintPath>..\packages\SC.Sitecore.Kernel.8.2.2\lib\Sitecore.Kernel.dll</HintPath>
       <Private>False</Private>
@@ -64,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentSearch\LuceneProvider\LuceneDocumentBuilder.cs" />
+    <Compile Include="ContentSearch\SolrProvider\SolrDocumentBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
