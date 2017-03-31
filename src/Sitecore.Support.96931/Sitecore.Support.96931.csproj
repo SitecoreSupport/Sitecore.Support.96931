@@ -40,20 +40,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
-      <HintPath>..\packages\SC.Lucene.Net.8.2.0\lib\Lucene.Net.dll</HintPath>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\SC.Lucene.Net.8.2.2\lib\Lucene.Net.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SC.Sitecore.ContentSearch.8.2.0\lib\Sitecore.ContentSearch.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch">
+      <HintPath>..\packages\SC.Sitecore.ContentSearch.8.2.2\lib\Sitecore.ContentSearch.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Sitecore.ContentSearch.LuceneProvider, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SC.Sitecore.ContentSearch.LuceneProvider.8.2.0\lib\Sitecore.ContentSearch.LuceneProvider.dll</HintPath>
+    <Reference Include="Sitecore.ContentSearch.LuceneProvider">
+      <HintPath>..\packages\SC.Sitecore.ContentSearch.LuceneProvider.8.2.2\lib\Sitecore.ContentSearch.LuceneProvider.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Kernel">
-      <HintPath>..\packages\SC.Sitecore.Kernel.8.2.0\lib\Sitecore.Kernel.dll</HintPath>
+      <HintPath>..\packages\SC.Sitecore.Kernel.8.2.2\lib\Sitecore.Kernel.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
