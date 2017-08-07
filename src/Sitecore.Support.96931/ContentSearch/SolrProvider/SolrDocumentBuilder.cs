@@ -11,51 +11,54 @@ using System.Web;
 
 namespace Sitecore.Support.ContentSearch.SolrProvider
 {
-  public class SolrDocumentBuilder : Sitecore.ContentSearch.SolrProvider.SolrDocumentBuilder
-  {
-    private static readonly MethodInfo AddComputedIndexFieldMethodInfo;
-    static SolrDocumentBuilder()
+    public class SolrDocumentBuilder : Sitecore.ContentSearch.SolrProvider.SolrDocumentBuilder
     {
-      AddComputedIndexFieldMethodInfo = typeof(Sitecore.ContentSearch.SolrProvider.SolrDocumentBuilder).GetMethod("AddComputedIndexField", BindingFlags.Instance | BindingFlags.NonPublic);
-    }
-    public SolrDocumentBuilder(IIndexable indexable, IProviderUpdateContext context) : base(indexable, context)
-    {
-    }
-    private void AddComputedIndexField(IComputedIndexField computedIndexField, ParallelLoopState parallelLoopState = null, ConcurrentQueue<Exception> exceptions = null)
-    {
-      AddComputedIndexFieldMethodInfo.Invoke(this, new object[]
-      {
+        private static readonly MethodInfo AddComputedIndexFieldMethodInfo;
+        static SolrDocumentBuilder()
+        {
+            AddComputedIndexFieldMethodInfo = typeof(Sitecore.ContentSearch.SolrProvider.SolrDocumentBuilder).GetMethod("AddComputedIndexField", BindingFlags.Instance | BindingFlags.NonPublic);
+        }
+        public SolrDocumentBuilder(IIndexable indexable, IProviderUpdateContext context) : base(indexable, context)
+        {
+        }
+        private void AddComputedIndexField(IComputedIndexField computedIndexField, ParallelLoopState parallelLoopState = null, ConcurrentQueue<Exception> exceptions = null)
+        {
+            AddComputedIndexFieldMethodInfo.Invoke(this, new object[]
+            {
                 computedIndexField, parallelLoopState, exceptions
-      });
-    }
+            });
+        }
 
-    protected override void AddComputedIndexFieldsInParallel()
-    {
-      ConcurrentQueue<Exception> exceptions = new ConcurrentQueue<Exception>();
-      this.ParallelForeachProxy.ForEach<IComputedIndexField>((IEnumerable<IComputedIndexField>)base.Options.ComputedIndexFields, base.ParallelOptions,
+        protected override void AddComputedIndexFieldsInParallel()
+        {
+            ConcurrentQueue<Exception> exceptions = new ConcurrentQueue<Exception>();
+            var needEnterLanguageFallbackItemSwitcher = LanguageFallbackItemSwitcher.CurrentValue;
+            this.ParallelForeachProxy.ForEach<IComputedIndexField>((IEnumerable<IComputedIndexField>)base.Options.ComputedIndexFields, base.ParallelOptions,
         (Action<IComputedIndexField, ParallelLoopState>)((field, parallelLoopState) =>
         {
-          using (new LanguageFallbackFieldSwitcher(this.Index.EnableFieldLanguageFallback))
-          {
-            this.AddComputedIndexField(field, parallelLoopState, exceptions);
-          }
+            using (new LanguageFallbackItemSwitcher(needEnterLanguageFallbackItemSwitcher))
+            {
+                using (new LanguageFallbackFieldSwitcher(this.Index.EnableFieldLanguageFallback))
+                {
+                    this.AddComputedIndexField(field, parallelLoopState, exceptions);
+                }
+            }
         }));
-      if (!exceptions.IsEmpty)
-      {
-        throw new AggregateException(exceptions);
-      }
-    }
-
-    protected override void AddComputedIndexFieldsInSequence()
-    {
-      foreach (IComputedIndexField field in base.Options.ComputedIndexFields)
-      {
-        using (new LanguageFallbackFieldSwitcher(this.Index.EnableFieldLanguageFallback))
-        {
-          this.AddComputedIndexField(field, null, null);
+            if (!exceptions.IsEmpty)
+            {
+                throw new AggregateException(exceptions);
+            }
         }
-      }
-    }
 
-  }
+        protected override void AddComputedIndexFieldsInSequence()
+        {
+            foreach (IComputedIndexField field in base.Options.ComputedIndexFields)
+            {
+                using (new LanguageFallbackFieldSwitcher(this.Index.EnableFieldLanguageFallback))
+                {
+                    this.AddComputedIndexField(field, null, null);
+                }
+            }
+        }
+    }
 }
