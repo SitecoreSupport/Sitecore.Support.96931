@@ -21,6 +21,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,8 +49,16 @@
       <HintPath>..\packages\SC.Sitecore.ContentSearch.9.0.1\lib\Sitecore.ContentSearch.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Sitecore.ContentSearch.Azure, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SC.Sitecore.ContentSearch.Azure.9.0.1\lib\Sitecore.ContentSearch.Azure.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Sitecore.ContentSearch.LuceneProvider">
       <HintPath>..\packages\SC.Sitecore.ContentSearch.LuceneProvider.9.0.1\lib\Sitecore.ContentSearch.LuceneProvider.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sitecore.ContentSearch.SolrProvider, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SC.Sitecore.ContentSearch.SolrProvider.9.0.1\lib\Sitecore.ContentSearch.SolrProvider.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Kernel">
@@ -63,8 +72,10 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentSearch\Azure\CloudSearchDocumentBuilder.cs" />
     <Compile Include="ContentSearch\LuceneProvider\LuceneDocumentBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ContentSearch\SolrProvider\SolrDocumentBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\zzz\Sitecore.Support.96931.config" />

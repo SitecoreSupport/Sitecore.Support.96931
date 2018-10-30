@@ -1,4 +1,4 @@
-﻿namespace Sitecore.Support.ContentSearch.LuceneProvider
+﻿namespace Sitecore.Support.ContentSearch.Azure
 {
     using System;
     using System.Collections.Concurrent;
@@ -6,16 +6,16 @@
     using Sitecore.ContentSearch.Diagnostics;
     using Sitecore.Data.LanguageFallback;
 
-    public class LuceneDocumentBuilder : Sitecore.ContentSearch.LuceneProvider.LuceneDocumentBuilder
+    public class CloudSearchDocumentBuilder : Sitecore.ContentSearch.Azure.CloudSearchDocumentBuilder
     {
-        public LuceneDocumentBuilder(IIndexable indexable, IProviderUpdateContext context) : base(indexable, context)
+        public CloudSearchDocumentBuilder(IIndexable indexable, IProviderUpdateContext context) : base(indexable, context)
         {
         }
 
         protected override void AddComputedIndexFieldsInParallel()
         {
             ConcurrentQueue<Exception> exceptions = new ConcurrentQueue<Exception>();
-            
+
             //ensure that we preserve current item-level language fallback setting when entering new threads
             var needEnterLanguageFallbackItemSwitcher = LanguageFallbackItemSwitcher.CurrentValue;
 
