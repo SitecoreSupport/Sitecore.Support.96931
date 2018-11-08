@@ -17,7 +17,7 @@
             ConcurrentQueue<Exception> exceptions = new ConcurrentQueue<Exception>();
 
             //ensure that we preserve current item-level language fallback setting when entering new threads
-            var needEnterLanguageFallbackItemSwitcher = LanguageFallbackItemSwitcher.CurrentValue;
+            var needEnterLanguageFallbackItemSwitcher = LanguageFallbackItemSwitcher.CurrentValue ?? false;
 
             this.ParallelForeachProxy.ForEach(
                 this.Options.ComputedIndexFields,
