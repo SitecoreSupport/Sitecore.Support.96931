@@ -23,7 +23,7 @@
         protected override void AddComputedIndexFieldsInParallel()
         {
             ConcurrentQueue<Exception> exceptions = new ConcurrentQueue<Exception>();
-            var needEnterLanguageFallbackItemSwitcher = LanguageFallbackItemSwitcher.CurrentValue;
+            var needEnterLanguageFallbackItemSwitcher = LanguageFallbackItemSwitcher.CurrentValue ?? false;
             Parallel.ForEach<IComputedIndexField>(base.Options.ComputedIndexFields, base.ParallelOptions, delegate (IComputedIndexField computedIndexField, ParallelLoopState parallelLoopState)
             {
                 object fieldValue;
