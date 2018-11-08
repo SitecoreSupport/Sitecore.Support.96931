@@ -32,7 +32,7 @@ namespace Sitecore.Support.ContentSearch.SolrProvider
         protected override void AddComputedIndexFieldsInParallel()
         {
             ConcurrentQueue<Exception> exceptions = new ConcurrentQueue<Exception>();
-            var needEnterLanguageFallbackItemSwitcher = LanguageFallbackItemSwitcher.CurrentValue;
+            var needEnterLanguageFallbackItemSwitcher = LanguageFallbackItemSwitcher.CurrentValue ?? false;
             this.ParallelForeachProxy.ForEach<IComputedIndexField>((IEnumerable<IComputedIndexField>)base.Options.ComputedIndexFields, base.ParallelOptions,
         (Action<IComputedIndexField, ParallelLoopState>)((field, parallelLoopState) =>
         {
